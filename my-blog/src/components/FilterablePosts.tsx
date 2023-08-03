@@ -2,6 +2,7 @@
 import { Post } from "@/service/posts";
 import { useState } from "react";
 import PostGrid from "./PostsGrid";
+import Categories from "./Categories";
 type Props = {
   posts: Post[];
   categories: string[];
@@ -14,8 +15,13 @@ export default function FilterablePosts({ posts, categories }: Props) {
       ? posts
       : posts.filter((post) => post.category === selected);
   return (
-    <section>
+    <section className="flex">
       <PostGrid posts={filtered} />
+      <Categories
+        categories={categories}
+        selected={selected}
+        onClick={setSelected}
+      />
     </section>
   );
 }

@@ -1,11 +1,28 @@
 "use client";
 
 type Props = {
-  categoreies: string[];
-  seleted: string;
+  categories: string[];
+  selected: string;
   onClick: (category: string) => void;
 };
 
-export default function Categories({ categoreies, seleted, onClick }: Props) {
-  return;
+export default function Categories({ categories, selected, onClick }: Props) {
+  return (
+    <section className="p-4">
+      <h2 className="text-xl font-bold border-b-2 border-sky-500 ">Category</h2>
+      <ul>
+        {categories.map((category) => (
+          <li
+            className={`cursor-pointer hover:text-sky-300 ${
+              category === selected && "text-sky-500"
+            }`}
+            key={category}
+            onClick={() => onClick(category)}
+          >
+            {category}
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
 }

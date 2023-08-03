@@ -2,10 +2,12 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function PostsLayout({ children }: Props) {
+const PostsLayout: React.FC<Props> = ({ children }) => {
   return (
     <>
       <div>{children}</div>
     </>
   );
-}
+};
+
+export default PostsLayout;
