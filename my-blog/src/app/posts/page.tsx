@@ -1,6 +1,4 @@
-import Categories from "@/components/Categories";
 import FilterablePosts from "@/components/FilterablePosts";
-import PostGrid from "@/components/PostsGrid";
 import { getPostsAll } from "@/service/posts";
 
 export default async function PostsPage() {
