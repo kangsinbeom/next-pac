@@ -1,15 +1,15 @@
-import { User } from "@/model/user";
+import { AuthUser } from "@/model/user";
 import Avatar from "./Avatar";
 
 interface Props {
-  user: User;
+  user: AuthUser;
 }
 const SideBar = ({ user }: Props) => {
   const { email, name, username, image } = user;
   return (
     <>
       <div className="flex items-center">
-        {image && <Avatar size="normal" image={image} />}
+        {image && <Avatar size="large" image={image} />}
         <div className="ml-4">
           <p className="font-bold">{username}</p>
           <p className="text-lg text-neutral-500 leading-4">{name}</p>

@@ -1,16 +1,16 @@
 "use client";
-import { DetailUser } from "@/model/user";
+import { HomeUser } from "@/model/user";
 import Link from "next/link";
 import { PropagateLoader } from "react-spinners";
 import useSWR from "swr";
 import Avatar from "./Avatar";
 import ScrollableBar from "./ui/ScrollableBar";
 const FollowingBar = () => {
-  const { data, isLoading: loading, error } = useSWR<DetailUser>("/api/me");
+  const { data, isLoading: loading, error } = useSWR<HomeUser>("/api/me");
   const users = data?.following;
 
   return (
-    <section className="w-full flex justify-center items-center p-4 shadow-md shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto">
+    <section className="w-full flex justify-center items-center p-4 shadow-md shadow-neutral-300 mb-4 rounded-lg min-h-[90px] overflow-x-auto relative z-0">
       {loading ? (
         <PropagateLoader size={8} color="red" />
       ) : (
@@ -24,7 +24,7 @@ const FollowingBar = () => {
               className="flex flex-col items-center w-20"
               href={`/user/${username}`}
             >
-              <Avatar image={image} size="normal" highlight />
+              <Avatar image={image} size="large" highlight />
               <p className="w-full text-center text-sm text-ellipsis overflow-hidden">
                 {username}
               </p>

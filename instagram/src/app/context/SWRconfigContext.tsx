@@ -6,11 +6,10 @@ interface Props {
   children: React.ReactNode;
 }
 
-const SWRconfigContext: React.FC<Props> = ({ children }) => {
+const SWRconfigContext = ({ children }: Props) => {
   return (
     <SWRConfig
       value={{
-        refreshInterval: 3000,
         fetcher: (url: string) => fetch(url).then((res) => res.json()),
       }}
     >

@@ -3,14 +3,7 @@ export interface Comment {
   username: string;
   image: string;
 }
-export interface SimplePost {
-  id: string;
-  username: string;
-  userImage: string;
-  image: string;
-  text: string;
-  createdAt: string;
-  likes: string[];
+export interface SimplePost extends Omit<FullPost, "comments"> {
   comments: number;
 }
 

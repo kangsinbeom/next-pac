@@ -1,4 +1,4 @@
-export interface User {
+export interface AuthUser {
   username: string;
   name: string;
   email: string;
@@ -6,12 +6,21 @@ export interface User {
 }
 
 export interface SimpleUser {
-  username: string;
-  image?: string;
+  username: AuthUser["username"];
+  image: AuthUser["image"];
 }
 
-export interface DetailUser extends User {
+export interface HomeUser extends AuthUser {
   following: SimpleUser[];
   follower: SimpleUser[];
   bookmarks: string[];
+}
+
+export interface SearchUser extends AuthUser {
+  following: number;
+  follower: number;
+}
+
+export interface ProfileUser extends SearchUser {
+  posts: number;
 }
