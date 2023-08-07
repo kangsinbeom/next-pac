@@ -42,4 +42,54 @@ const getPost = async (id: string) => {
     )
     .then((post) => ({ ...post, image: urlFor(post.image) }));
 };
-export { getFollowingPostsOf, getPost };
+
+const getPostOf = async (username: string) => {
+  return client
+    .fetch(
+      `*[_type == 'post' && author->username == "${username}"]
+    | order(_createdAt desc){
+      ${simplePostProjection}
+
+    }
+    `
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+};
+const getLikedPostOf = async (username: string) => {
+  return client
+    .fetch(
+      `*[_type == 'post' && "${username}" in likes[]->username]
+    | order(_createdAt desc){
+      ${simplePostProjection}
+
+    }
+    `
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+};
+
+const getSavedPostOf = async (username: string) => {
+  return client
+    .fetch(
+      `*[_type == 'post' && _id in *[_type =="user" && username=="${username}"].bookmarks[]._ref]
+    | order(_createdAt desc){
+      ${simplePostProjection}
+
+    }
+    `
+    )
+    .then((posts) =>
+      posts.map((post: SimplePost) => ({ ...post, image: urlFor(post.image) }))
+    );
+};
+export {
+  getFollowingPostsOf,
+  getPost,
+  getPostOf,
+  getLikedPostOf,
+  getSavedPostOf,
+};

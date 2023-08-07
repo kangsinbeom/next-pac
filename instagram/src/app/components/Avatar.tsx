@@ -1,6 +1,6 @@
 interface Props {
   image?: string | null;
-  size: "large" | "medium" | "small";
+  size: "xlarge" | "large" | "medium" | "small";
   highlight?: boolean;
 }
 
@@ -9,29 +9,41 @@ const getContainerStyle = (size: string, highlight: boolean): string => {
   const highlightStyle = highlight
     ? "bg-gradient-to-bl from-fuchsia-600 via-rose-500 to-amber-300"
     : "";
-  const sizeStyle = getContainerSize(size);
-  return `${baseStyle} ${sizeStyle} ${highlightStyle}`;
+  const { container } = getImageSizeStyle(size);
+  return `${baseStyle} ${container} ${highlightStyle}`;
 };
-const getContainerSize = (size: string): string | undefined => {
+
+interface ImageSizeStyle {
+  container: string;
+  image: string;
+}
+const getImageSizeStyle = (size: string): ImageSizeStyle => {
   switch (size) {
     case "small":
-      return "w-9 h-9";
+      return {
+        container: "w-9 h-9",
+        image: "w-[34px] h-[34px] p-[0.1rem]",
+      };
     case "medium":
-      return "w-11 h-11";
+      return {
+        container: "w-11 h-11",
+        image: "w-[42px] h-[42px] p-[0.1rem]",
+      };
     case "large":
-      return "w-[68px] h-[68px]";
+      return {
+        container: "w-[68px] h-[68px]",
+        image: "w-16 h-16 p-[0.2rem]",
+      };
+    case "xlarge":
+      return {
+        container: "w-[142px] h-[142px]",
+        image: "w-[138px] h-[138px] p-[0.3rem]",
+      };
+    default:
+      throw new Error(`Unsupported size: ${size}`);
   }
 };
-const getImageSizeStyle = (size: string): string | undefined => {
-  switch (size) {
-    case "small":
-      return "w-[34px] h-[34px] p-[0.1rem]";
-    case "medium":
-      return "w-[42px] h-[42px] p-[0.1rem]";
-    case "large":
-      return "w-16 h-16 p-[0.2rem]";
-  }
-};
+
 const Avatar: React.FC<Props> = ({
   image,
   size = "large",
@@ -41,9 +53,9 @@ const Avatar: React.FC<Props> = ({
     <div className={getContainerStyle(size, highlight)}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        className={`bg-white object-cover rounded-full ${getImageSizeStyle(
-          size
-        )}`}
+        className={`bg-white object-cover rounded-full ${
+          getImageSizeStyle(size).image
+        }`}
         src={image ?? undefined}
         alt="user profile"
       />
